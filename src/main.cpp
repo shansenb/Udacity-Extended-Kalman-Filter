@@ -4,6 +4,8 @@
 #include "json.hpp"
 #include "FusionEKF.h"
 #include "tools.h"
+#include <time.h>
+#include <iostream>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -12,6 +14,10 @@ using std::vector;
 
 // for convenience
 using json = nlohmann::json;
+
+
+// timing for testing
+clock_t start, end;
 
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
@@ -107,8 +113,13 @@ int main() {
           gt_values(3) = vy_gt;
           ground_truth.push_back(gt_values);
           
+          //start a timer
+          start = clock();
+
           // Call ProcessMeasurement(meas_package) for Kalman filter
           fusionEKF.ProcessMeasurement(meas_package);       
+
+          end = clock();
 
           // Push the current estimated x,y positon from the Kalman filter's 
           //   state vector
@@ -124,7 +135,11 @@ int main() {
           estimate(1) = p_y;
           estimate(2) = v1;
           estimate(3) = v2;
-        
+
+          //time calculation
+          double cycletime = (double)(end-start)/CLOCKS_PER_SEC;
+          std::cout <<"Approximate Execution time: " <<cycletime << "(s)" << std::endl;
+
           estimations.push_back(estimate);
 
           VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
