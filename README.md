@@ -5,9 +5,9 @@ Self-Driving Car Engineer Nanodegree Program
 [image2]: ./images/dataset2_EKF.png "Dataset 2"
 [image3]: ./images/generalflow.png "General Flow"
 
-#Overview
+# Overview
 
-This project impliments an extended Kalman filter in C++ to estimate the position and velocity of bicycle type object from noisy lidar and radar measurements. A simulator provided by Udacity provides visualization of the noisy data and the position predicted by the EKF. Communication is facilitated by [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) which .... client server. 
+This project impliments an extended Kalman filter in C++ to estimate the position and velocity of bicycle type object from noisy lidar and radar measurements. A simulator provided by Udacity provides visualization of the noisy data and the position predicted by the EKF. Communication is facilitated by [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) which setting up a web socket server connection from the EKF program to the simulator, which acts as the host. 
 
 Comparison between the ground truth and estimated position was done through a simple root mean squared error calculation. Using the provided measurement covariances my implimentation acheived the following RMSE values on the first dataset. 
 
